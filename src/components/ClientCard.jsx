@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import './ClientCard.css';
 
-function ClientCard({ client, isEditing, onEdit, onSave, onCancelEdit, onClose }) {
+function ClientCard({ client, isEditing, onEdit, onSave, onCancelEdit, onClose, onDelete  }) {
   const [formData, setFormData] = useState({
   firstName: client.firstName,
   lastName: client.lastName,
@@ -13,6 +13,16 @@ function ClientCard({ client, isEditing, onEdit, onSave, onCancelEdit, onClose }
   vk: client.vk || '',
   telegram: client.telegram || ''
 })
+
+console.log('=== ClientCard Debug ===')
+console.log('onDelete пропс получен?', onDelete)
+console.log('Тип onDelete:', typeof onDelete)
+
+// Если onDelete не функция, покажем ошибку
+if (typeof onDelete !== 'function') {
+  console.error('❌ ОШИБКА: onDelete не передана в ClientCard!')
+  console.error('Проверьте App.jsx - пропс onDelete не установлен')
+}
 
   if (isEditing) {
     return (
@@ -263,23 +273,30 @@ function ClientCard({ client, isEditing, onEdit, onSave, onCancelEdit, onClose }
           >
             ✕ Закрыть
           </button>
-    <button 
-                onClick={(e) => {
-                  e.stopPropagation()
-                  onDelete(client)
-                }}
-                style={{
-                  backgroundColor: '#ffebee',
-                  color: '#c62828',
-                  border: '1px solid #ffcdd2',
-                  borderRadius: '3px',
-                  padding: '4px 8px',
-                  cursor: 'pointer',
-                  fontSize: '11px'
-                }}
-              >
-                Удалить
-              </button>
+<button 
+    onClick={() => {
+      console.log('Нажата кнопка удаления в ClientCard')
+      if (typeof onDelete === 'function') {
+        onDelete()
+      } else {
+        alert('Ошибка: функция удаления не настроена')
+        console.error('onDelete не функция:', onDelete)
+      }
+    }}
+    style={{
+      marginLeft: '10px',
+      backgroundColor: '#ff4444',
+      color: 'white',
+      border: 'none',
+      borderRadius: '4px',
+      padding: '10px 20px',
+      cursor: 'pointer',
+      fontSize: '14px',
+      fontWeight: 'bold'
+    }}
+  >
+    🗑️ Удалить клиента
+  </button>
         </div>
       </div>
       

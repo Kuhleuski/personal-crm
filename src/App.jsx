@@ -130,6 +130,10 @@ function App() {
                 setSelectedClient(null)
                 setIsEditing(false)
               }}
+                 onDelete={() => {
+    console.log('Кнопка удаления нажата для:', selectedClient)
+    setClientToDelete(selectedClient)
+  }}
             />
           ) : (
             <div style={{
