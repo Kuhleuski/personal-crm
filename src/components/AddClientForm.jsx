@@ -116,7 +116,68 @@ function AddClientForm({ onAdd, onCancel }) {
             }}
           />
         </div>
-        
+        // Добавляем поля в форму:
+<div className="form-group">
+  <label>Instagram (никнейм без @):</label>
+  <input 
+    type="text"
+    placeholder="username"
+    value={formData.instagram || ''}
+    onChange={(e) => setFormData({...formData, instagram: e.target.value})}
+  />
+</div>
+
+<div className="form-group">
+  <label>VK (id или короткое имя):</label>
+  <input 
+    type="text"
+    placeholder="id123456 или username"
+    value={formData.vk || ''}
+    onChange={(e) => setFormData({...formData, vk: e.target.value})}
+  />
+</div>
+
+<div className="form-group">
+  <label>Telegram (никнейм без @):</label>
+  <input 
+    type="text"
+    placeholder="username"
+    value={formData.telegram || ''}
+    onChange={(e) => setFormData({...formData, telegram: e.target.value})}
+  />
+</div>
+{/* Добавьте эти поля в AddClientForm.jsx */}
+<div className="form-group">
+  <label>Instagram (никнейм без @):</label>
+  <input 
+    type="text"
+    placeholder="username"
+    value={formData.instagram || ''}
+    onChange={(e) => setFormData({...formData, instagram: e.target.value})}
+  />
+</div>
+
+<div className="form-group">
+  <label>VK (id или короткое имя):</label>
+  <input 
+    type="text"
+    placeholder="id123456 или username"
+    value={formData.vk || ''}
+    onChange={(e) => setFormData({...formData, vk: e.target.value})}
+  />
+</div>
+
+<div className="form-group">
+  <label>Telegram (никнейм без @):</label>
+  <input 
+    type="text"
+    placeholder="username"
+    value={formData.telegram || ''}
+    onChange={(e) => setFormData({...formData, telegram: e.target.value})}
+  />
+</div>
+
+
         <div style={{ marginTop: '20px' }}>
           <button 
             type="submit"

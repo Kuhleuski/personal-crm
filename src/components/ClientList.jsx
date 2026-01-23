@@ -47,7 +47,7 @@ function ClientList({ clients, selectedClient, onSelect, onDelete }) {
                   </div>
                 )}
               </div>
-              <button 
+              {/* <button 
                 onClick={(e) => {
                   e.stopPropagation()
                   onDelete(client)
@@ -63,7 +63,7 @@ function ClientList({ clients, selectedClient, onSelect, onDelete }) {
                 }}
               >
                 Удалить
-              </button>
+              </button> */}
             </div>
           </div>
         ))}

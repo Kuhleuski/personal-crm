@@ -1,13 +1,18 @@
 import { useState } from 'react'
+import './ClientCard.css';
 
 function ClientCard({ client, isEditing, onEdit, onSave, onCancelEdit, onClose }) {
   const [formData, setFormData] = useState({
-    firstName: client.firstName,
-    lastName: client.lastName,
-    phone: client.phone,
-    email: client.email,
-    notes: client.notes
-  })
+  firstName: client.firstName,
+  lastName: client.lastName,
+  phone: client.phone,
+  email: client.email,
+  notes: client.notes,
+  // ДОБАВЬТЕ ЭТИ ПОЛЯ:
+  instagram: client.instagram || '',
+  vk: client.vk || '',
+  telegram: client.telegram || ''
+})
 
   if (isEditing) {
     return (
@@ -106,6 +111,58 @@ function ClientCard({ client, isEditing, onEdit, onSave, onCancelEdit, onClose }
               }}
             />
           </div>
+          {/* === ДОБАВЬТЕ ЭТОТ БЛОК === */}
+<div style={{ marginTop: '20px' }}>
+  <label style={{ display: 'block', marginBottom: '8px', fontWeight: 'bold', color: '#555' }}>Instagram</label>
+  <input
+    type="text"
+    placeholder="@username (без @)"
+    value={formData.instagram || ''}
+    onChange={(e) => setFormData({...formData, instagram: e.target.value})}
+    style={{
+      width: '100%',
+      padding: '12px',
+      border: '1px solid #ccc',
+      borderRadius: '6px',
+      fontSize: '16px'
+    }}
+  />
+</div>
+
+<div style={{ marginTop: '20px' }}>
+  <label style={{ display: 'block', marginBottom: '8px', fontWeight: 'bold', color: '#555' }}>VK</label>
+  <input
+    type="text"
+    placeholder="id или короткое имя"
+    value={formData.vk || ''}
+    onChange={(e) => setFormData({...formData, vk: e.target.value})}
+    style={{
+      width: '100%',
+      padding: '12px',
+      border: '1px solid #ccc',
+      borderRadius: '6px',
+      fontSize: '16px'
+    }}
+  />
+</div>
+
+<div style={{ marginTop: '20px' }}>
+  <label style={{ display: 'block', marginBottom: '8px', fontWeight: 'bold', color: '#555' }}>Telegram</label>
+  <input
+    type="text"
+    placeholder="@username (без @)"
+    value={formData.telegram || ''}
+    onChange={(e) => setFormData({...formData, telegram: e.target.value})}
+    style={{
+      width: '100%',
+      padding: '12px',
+      border: '1px solid #ccc',
+      borderRadius: '6px',
+      fontSize: '16px'
+    }}
+  />
+</div>
+{/* === КОНЕЦ БЛОКА ДЛЯ ВСТАВКИ === */}
         </div>
         
         <div>
@@ -206,6 +263,23 @@ function ClientCard({ client, isEditing, onEdit, onSave, onCancelEdit, onClose }
           >
             ✕ Закрыть
           </button>
+    <button 
+                onClick={(e) => {
+                  e.stopPropagation()
+                  onDelete(client)
+                }}
+                style={{
+                  backgroundColor: '#ffebee',
+                  color: '#c62828',
+                  border: '1px solid #ffcdd2',
+                  borderRadius: '3px',
+                  padding: '4px 8px',
+                  cursor: 'pointer',
+                  fontSize: '11px'
+                }}
+              >
+                Удалить
+              </button>
         </div>
       </div>
       
@@ -239,8 +313,103 @@ function ClientCard({ client, isEditing, onEdit, onSave, onCancelEdit, onClose }
             {client.email || <span style={{ color: '#999' }}>Не указан</span>}
           </div>
         </div>
+        {/* === ДОБАВЬТЕ ЭТОТ БЛОК === */}
+<div style={{ marginTop: '25px', paddingTop: '25px', borderTop: '1px solid #eee' }}>
+  <h4 style={{ color: '#666', borderBottom: '1px solid #eee', paddingBottom: '8px', marginBottom: '20px' }}>
+    🌐 Социальные сети
+  </h4>
+  
+  <div style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
+    {client.instagram && (
+      <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+        <span style={{ fontSize: '20px' }}>📸</span>
+        <div>
+          <div style={{ fontSize: '13px', color: '#888' }}>Instagram</div>
+          <a 
+            href={`https://instagram.com/${client.instagram}`} 
+            target="_blank" 
+            rel="noreferrer"
+            style={{ color: '#007bff', textDecoration: 'none', fontSize: '16px' }}
+          >
+            @{client.instagram}
+          </a>
+        </div>
+      </div>
+    )}
+    
+    {client.vk && (
+      <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+        <span style={{ fontSize: '20px' }}>🔵</span>
+        <div>
+          <div style={{ fontSize: '13px', color: '#888' }}>VK</div>
+          <a 
+            href={`https://vk.com/${client.vk}`} 
+            target="_blank" 
+            rel="noreferrer"
+            style={{ color: '#007bff', textDecoration: 'none', fontSize: '16px' }}
+          >
+            {client.vk}
+          </a>
+        </div>
+      </div>
+    )}
+    
+    {client.telegram && (
+      <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+        <span style={{ fontSize: '20px' }}>✈️</span>
+        <div>
+          <div style={{ fontSize: '13px', color: '#888' }}>Telegram</div>
+          <a 
+            href={`https://t.me/${client.telegram}`} 
+            target="_blank" 
+            rel="noreferrer"
+            style={{ color: '#007bff', textDecoration: 'none', fontSize: '16px' }}
+          >
+            @{client.telegram}
+          </a>
+        </div>
+      </div>
+    )}
+    
+    {!client.instagram && !client.vk && !client.telegram && (
+      <div style={{ textAlign: 'center', color: '#999', padding: '20px' }}>
+        Социальные сети не указаны
+      </div>
+    )}
+  </div>
+</div>
+{/* === КОНЕЦ БЛОКА ДЛЯ ВСТАВКИ === */}
       </div>
       
+
+
+// В ClientCard.jsx, после основных полей:
+<div className="social-links">
+  {client.instagram && (
+    <a href={`https://instagram.com/${client.instagram}`} target="_blank" rel="noreferrer">
+      📸 Instagram: @{client.instagram}
+    </a>
+  )}
+  
+  {client.vk && (
+    <a href={`https://vk.com/${client.vk}`} target="_blank" rel="noreferrer">
+      🔵 VK: {client.vk}
+    </a>
+  )}
+  
+  {client.telegram && (
+    <a href={`https://t.me/${client.telegram}`} target="_blank" rel="noreferrer">
+      ✈️ Telegram: @{client.telegram}
+    </a>
+  )}
+  
+  {!client.instagram && !client.vk && !client.telegram && (
+    <span className="no-social">Социальные сети не указаны</span>
+  )}
+</div>
+
+
+
       <div>
         <h4 style={{ color: '#666', borderBottom: '1px solid #eee', paddingBottom: '8px', marginBottom: '20px' }}>
           📝 Заметки фотографа
